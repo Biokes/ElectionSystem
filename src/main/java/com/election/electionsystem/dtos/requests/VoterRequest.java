@@ -7,6 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,15 +25,14 @@ public class VoterRequest {
     private String firstname;
     @NotBlank
     private String lastname;
+    @NotBlank
+    @Pattern(regexp = "[a-zA-Z0-9]+([-=()<>/&*%^]*){8,}",
+            message = "Password must contain at least one lowercase letter, one uppercase letter, one digit, and be at least 8 characters long")
+    private String password;
     @NotNull
     private AddressRequest address;
-    @Setter(AccessLevel.NONE)
-    @Getter(AccessLevel.NONE)
     @ValidateMail(regex = "^(?=[a-zA-Z])[a-zA-Z]+([0-9]*)([_+!`]*)+@(?=[a-zA-Z])([a-zA-Z]+)([0-9]*)([a-zA-Z0-9._!~+-]*)+\\.[a-zA-Z]{2,}$")
-    @NotBlank
     private String email;
-    @NotBlank
-    private String password;
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     @NotNull

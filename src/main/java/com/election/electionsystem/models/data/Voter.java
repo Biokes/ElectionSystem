@@ -1,5 +1,6 @@
 package com.election.electionsystem.models.data;
 
+import com.election.electionsystem.models.RegisterationStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,4 +26,5 @@ public class Voter {
     private LocalDate DOB;
     @OneToOne(cascade = CascadeType.ALL)
     private ContactInformation infoRequest;
+    private RegisterationStatus registerationStatus;
 }

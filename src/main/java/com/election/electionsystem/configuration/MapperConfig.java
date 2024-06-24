@@ -15,9 +15,5 @@ public class MapperConfig {
     public ModelMapper modelMapper(){
         return new ModelMapper();
     }
-//    @Bean
-//    @Qualifier("mapResponse")
-//    public ModelMapper mapVoterToResponse(){
-//        TypeMap<Voter, VoterResponse> voter = modelMapper().createTypeMap(Voter.class, VoterRequest.class)
-//    }
+
 }

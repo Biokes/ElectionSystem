@@ -25,6 +25,7 @@ public class VoterServiceTest {
         VoterRequest voterRequest = VoterRequest.builder()
                 .firstname("firstname").lastname("lastname").DOB(LocalDate.parse("1989-12-19"))
                 .email("user@example.com ")
+                .password("Password12,.")
                 .address(AddressRequest.builder().houseNumber("12")
                 .State("lagos").area("meiran").street("lagos").build())
                 .infoRequest(ContactInfoRequest.builder().localGovernment("alimosho")
@@ -33,5 +34,10 @@ public class VoterServiceTest {
         assertEquals(APPROVED,response.getStatus());
         assertThat(response.getId()).isEqualTo(1L);
         assertNotNull(response.getEmail());
+    }
+    @Test
+    void testVoterCaBeSuspended(){
+//        SuspendVoterRequest suspendVoter =SuspendVoterRequest()
+                ;
     }
 }

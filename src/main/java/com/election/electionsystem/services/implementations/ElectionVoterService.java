@@ -14,9 +14,11 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import static com.election.electionsystem.exceptions.ExceptionMessages.INVALID_DETAILS;
+import static com.election.electionsystem.models.RegisterationStatus.APPROVED;
 import static com.election.electionsystem.utils.Validator.validate;
 
 @Service
@@ -25,30 +27,36 @@ import static com.election.electionsystem.utils.Validator.validate;
 public class ElectionVoterService implements VoterService {
     private VoterRepository voterRepository;
     private ModelMapper modelMapper;
-//    @Qualifier("mapResponse")
-//    private ModelMapper mapVoter;
+    private final PasswordEncoder passwordEncoder;
+
     @Override
     public VoterResponse registerVoter(VoterRequest voterRequest) {
         try {
             validate(voterRequest);
             Address address = modelMapper.map(voterRequest.getAddress(), Address.class);
-            log.info("Address ----------->>{}",address);
             ContactInformation contactInfo = modelMapper.map(voterRequest.getInfoRequest(), ContactInformation.class);
-            log.info("contactInfo ----------->>{}",contactInfo);
-            Voter voter = voterRepository.save(mapper(contactInfo, address, voterRequest));
-            log.info("voter ----------->>{}",voter);
-            VoterResponse response = modelMapper.map(voter, VoterResponse.class);
-            log.info("response ----------->>{}",response);
-            response.setStatus(RegisterationStatus.APPROVED);
-            return response;
+            Voter voter  = mapper(contactInfo, address, voterRequest);
+            voter.setRegisterationStatus(APPROVED);
+            voter = voterRepository.save(voter);
+            log.info("Voter after Saved--------->>>{}",voter);
+            return mapVoter(voter);
         }catch(ConstraintViolationException error){
             throw new ElectionException(INVALID_DETAILS.getMessage());
         }
     }
-    private Voter mapper(ContactInformation contactInfo,
-                         Address address, VoterRequest voterRequest) {
-        Voter voter = modelMapper.map(voterRequest, Voter.class);
+
+    private VoterResponse mapVoter(Voter voter) {
+        return VoterResponse.builder()
+                .id(voter.getId())
+                .email(voter.getEmail())
+                .status(voter.getRegisterationStatus())
+                .build();
+    }
+
+    private Voter mapper(ContactInformation contactInfo, Address address, VoterRequest voterRequest) {
         contactInfo.setAddress(address);
+        Voter voter = modelMapper.map(voterRequest, Voter.class);
+        voter.setPassword(passwordEncoder.encode(voterRequest.getPassword()));
         voter.setInfoRequest(contactInfo);
         return voter;
     }
