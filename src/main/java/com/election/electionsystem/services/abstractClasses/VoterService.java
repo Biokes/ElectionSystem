@@ -1,8 +1,8 @@
 package com.election.electionsystem.services.abstractClasses;
 
 
-import com.election.electionsystem.requests.VoterRequest;
-import com.election.electionsystem.response.VoterResponse;
+import com.election.electionsystem.dtos.requests.VoterRequest;
+import com.election.electionsystem.dtos.response.VoterResponse;
 import org.springframework.stereotype.Service;
 
 @Service

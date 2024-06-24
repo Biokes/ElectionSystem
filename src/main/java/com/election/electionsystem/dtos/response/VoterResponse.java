@@ -1,15 +1,16 @@
-package com.election.electionsystem.response;
+package com.election.electionsystem.dtos.response;
 
 import com.election.electionsystem.models.RegisterationStatus;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class VoterResponse {
     private RegisterationStatus status;
     private Long id;
-    private String username;
+    private String email;
 }
