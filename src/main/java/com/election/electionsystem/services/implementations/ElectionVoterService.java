@@ -1,5 +1,8 @@
 package com.election.electionsystem.services.implementations;
 
+import com.election.electionsystem.dtos.requests.SuspendVoterRequest;
+import com.election.electionsystem.dtos.requests.UpdateProfileRequest;
+import com.election.electionsystem.dtos.response.UpdateProfileResponse;
 import com.election.electionsystem.exceptions.ElectionException;
 import com.election.electionsystem.models.RegisterationStatus;
 import com.election.electionsystem.models.data.Address;
@@ -18,7 +21,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import static com.election.electionsystem.exceptions.ExceptionMessages.INVALID_DETAILS;
+import static com.election.electionsystem.exceptions.ExceptionMessages.VOTER_NOT_FOUND;
 import static com.election.electionsystem.models.RegisterationStatus.APPROVED;
+import static com.election.electionsystem.models.RegisterationStatus.SUSPENDED;
 import static com.election.electionsystem.utils.Validator.validate;
 
 @Service
@@ -43,6 +48,24 @@ public class ElectionVoterService implements VoterService {
         }catch(ConstraintViolationException error){
             throw new ElectionException(INVALID_DETAILS.getMessage());
         }
+    }
+
+    @Override
+    public Voter findVoterById(long id) {
+        return voterRepository.findById(id)
+                .orElseThrow(()->new ElectionException(VOTER_NOT_FOUND.getMessage()));
+    }
+
+    @Override
+    public void suspendVoter(SuspendVoterRequest suspendVoter) {
+        Voter voterFound = findVoterById(suspendVoter.getVoterId());
+        voterFound.setRegisterationStatus(SUSPENDED);
+        voterRepository.save(voterFound);
+    }
+
+    @Override
+    public UpdateProfileResponse updateVoterProfile(UpdateProfileRequest updateRequest) {
+        return null;
     }
 
     private VoterResponse mapVoter(Voter voter) {

@@ -1,8 +1,7 @@
 package com.election.electionsystem;
 
-import com.election.electionsystem.dtos.requests.AddressRequest;
-import com.election.electionsystem.dtos.requests.ContactInfoRequest;
-import com.election.electionsystem.dtos.requests.VoterRequest;
+import com.election.electionsystem.dtos.requests.*;
+import com.election.electionsystem.dtos.response.UpdateProfileResponse;
 import com.election.electionsystem.dtos.response.VoterResponse;
 import com.election.electionsystem.services.abstractClasses.VoterService;
 import org.junit.jupiter.api.Test;
@@ -12,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDate;
 
 import static com.election.electionsystem.models.RegisterationStatus.APPROVED;
+import static com.election.electionsystem.models.RegisterationStatus.SUSPENDED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -36,8 +36,16 @@ public class VoterServiceTest {
         assertNotNull(response.getEmail());
     }
     @Test
-    void testVoterCaBeSuspended(){
-//        SuspendVoterRequest suspendVoter =SuspendVoterRequest()
-                ;
+    void testVoterCanBeSuspended(){
+        SuspendVoterRequest suspendVoter = SuspendVoterRequest.builder()
+                .voterId(1L).build();
+        voterService.suspendVoter(suspendVoter);
+        assertEquals(SUSPENDED,voterService.findVoterById(1L).getRegisterationStatus());
+    }
+    @Test
+    void testVoterProfileCanBeUpdated(){
+        UpdateProfileRequest updateRequest = UpdateProfileRequest.builder().build();
+        UpdateProfileResponse response = voterService.updateVoterProfile(updateRequest);
+
     }
 }
