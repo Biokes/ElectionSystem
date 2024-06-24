@@ -1,4 +1,4 @@
-package com.election.electionsystem.services;
+package com.election.electionsystem.services.abstractClasses;
 
 
 import com.election.electionsystem.requests.VoterRequest;

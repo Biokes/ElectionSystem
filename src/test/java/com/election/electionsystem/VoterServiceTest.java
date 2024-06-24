@@ -4,7 +4,7 @@ import com.election.electionsystem.requests.AddressRequest;
 import com.election.electionsystem.requests.ContactInfoRequest;
 import com.election.electionsystem.requests.VoterRequest;
 import com.election.electionsystem.response.VoterResponse;
-import com.election.electionsystem.services.VoterService;
+import com.election.electionsystem.services.abstractClasses.VoterService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
