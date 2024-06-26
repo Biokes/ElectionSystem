@@ -17,5 +17,4 @@ public class ElectionRequest {
     private String description;
     private LocalDateTime startDate;
     private LocalDateTime endTime;
-    private Status electionStatus;
 }
