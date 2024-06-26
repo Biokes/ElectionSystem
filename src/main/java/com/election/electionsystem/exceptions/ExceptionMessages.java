@@ -8,7 +8,7 @@ public enum ExceptionMessages {
     INVALID_EMAIL("Invalid email provided"),
     SOMETHING_WENT_WRONG("Something went wrong"),
     VOTER_NOT_FOUND("voter not found"),
-    INVALID_DETAILS("Invalid details provided"),
+    INVALID_DETAILS("Invalid details provided, or Check Email provided."),
     INVALID_NUMBER("Invalid Number provided");
     final String message;
     ExceptionMessages(String message){
