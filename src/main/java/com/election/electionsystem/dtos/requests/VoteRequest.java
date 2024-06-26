@@ -12,7 +12,7 @@ public class VoteRequest {
     @NotNull
     private Long candidateId;
     @NotNull
-    private Long electioId;
+    private Long electionId;
     @NotNull
     private Long voterId;
 }

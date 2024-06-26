@@ -12,6 +12,6 @@ public class VoteServiceTest {
     private VoteService voteService;
     @Test
     void testVoterCanVote(){
-        VoteRequest votetRequest = VoteRequest.builder().build();
+        VoteRequest voteRequest = VoteRequest.builder().voterId(1L).candidateId(1L).electionId(4L).build();
     }
 }
