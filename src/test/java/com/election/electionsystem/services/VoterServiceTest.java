@@ -1,4 +1,4 @@
-package com.election.electionsystem;
+package com.election.electionsystem.services;
 
 import com.election.electionsystem.dtos.requests.*;
 import com.election.electionsystem.dtos.response.UpdateProfileResponse;
