@@ -1,6 +1,6 @@
 package com.election.electionsystem.annotation.validator;
 
-import com.election.electionsystem.annotation.ValidateMail;
+import com.election.electionsystem.annotation.annotation.ValidateMail;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.AllArgsConstructor;

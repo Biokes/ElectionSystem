@@ -21,12 +21,16 @@ public class ElectionServiceTest {
     private ElectionService electionService;
     @Test
     void testElectionCanBeScheduled(){
-        ElectionRequest request = ElectionRequest.builder()
-                .electionOffice(PRESIDENCY).startDate(LocalDateTime.parse("2024-12-03T10:00:00"))
+        ElectionRequest request = ElectionRequest.builder().electionOffice(PRESIDENCY)
+                .startDate(LocalDateTime.parse("2024-12-03T10:00:00"))
                 .endTime(LocalDateTime.parse("2024-12-03T18:00:00")).description("Elite election").build();
         ScheduleResponse response = electionService.scheduleElection(request);
         assertEquals(NOT_STARTED,response.getStatus());
         assertNotNull(response.getDescription());
-        assertThat(response.getId()).isNotEqualTo(0L);
+        assertThat(response.getId()).isNotEqualTo(1L);
+    }
+    @Test
+    void testElectionCanBeRescheduled(){
+
     }
 }

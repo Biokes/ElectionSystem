@@ -9,6 +9,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static com.election.electionsystem.data.enums.Status.NOT_STARTED;
+
 @Service
 public class ElectionSystemService implements ElectionService {
     private final ModelMapper modelMapper;
@@ -17,8 +19,12 @@ public class ElectionSystemService implements ElectionService {
     public ElectionSystemService(ModelMapper modelMapper, ElectionRepository electionRepo){
         this.electionRepository= electionRepo;
         this.modelMapper = modelMapper;
-    }    @Override
+    }
+    @Override
     public ScheduleResponse scheduleElection(ElectionRequest electionRequest) {
-        return null;
+        Election election = modelMapper.map(electionRequest, Election.class);
+        election.setStatus(NOT_STARTED);
+        election = electionRepository.save(election);
+        return modelMapper.map(election,ScheduleResponse.class);
     }
 }

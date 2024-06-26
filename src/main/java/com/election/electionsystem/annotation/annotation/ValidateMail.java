@@ -1,4 +1,4 @@
-package com.election.electionsystem.annotation;
+package com.election.electionsystem.annotation.annotation;
 
 import com.election.electionsystem.annotation.validator.EmailValidator;
 import jakarta.validation.Constraint;
