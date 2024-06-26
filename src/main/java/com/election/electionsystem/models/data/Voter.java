@@ -1,6 +1,10 @@
 package com.election.electionsystem.models.data;
 
 import com.election.electionsystem.models.RegisterationStatus;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,10 +25,14 @@ public class Voter {
     private Long id;
     private String firstname;
     private String lastname;
+    @Column(unique = true)
     private String email;
     private String password;
+    @JsonSerialize(using= LocalDateSerializer.class)
+    @JsonDeserialize(using= LocalDateDeserializer.class)
     private LocalDate DOB;
     @OneToOne(cascade = CascadeType.ALL)
     private ContactInformation infoRequest;
+    @Enumerated(EnumType.STRING)
     private RegisterationStatus registerationStatus;
 }

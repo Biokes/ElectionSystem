@@ -3,20 +3,24 @@ package com.election.electionsystem;
 import com.election.electionsystem.dtos.requests.*;
 import com.election.electionsystem.dtos.response.UpdateProfileResponse;
 import com.election.electionsystem.dtos.response.VoterResponse;
+import com.election.electionsystem.models.data.Voter;
 import com.election.electionsystem.services.abstractClasses.VoterService;
+
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 
 import static com.election.electionsystem.models.RegisterationStatus.APPROVED;
 import static com.election.electionsystem.models.RegisterationStatus.SUSPENDED;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Slf4j
 public class VoterServiceTest {
     @Autowired
     private VoterService voterService;
@@ -44,8 +48,21 @@ public class VoterServiceTest {
     }
     @Test
     void testVoterProfileCanBeUpdated(){
-        UpdateProfileRequest updateRequest = UpdateProfileRequest.builder().build();
-        UpdateProfileResponse response = voterService.updateVoterProfile(updateRequest);
-
+            UpdateProfileRequest updateRequest = UpdateProfileRequest.builder().id(1L)
+                                                 .lastname("new lastName").oldPassword("Password128,")
+                                                 .password("Password128,.").build();
+            voterService.updateVoterProfile(updateRequest);
+            Voter voter = voterService.findVoterById(1L);
+            assertTrue("new lastName".equalsIgnoreCase(voter.getLastname()));
+            assertThat(voter.getPassword()).isNotBlank();
+            assertEquals(APPROVED,voter.getRegisterationStatus());
     }
+    @Test
+    void testVoterCanBeApprovedAfterSuspension(){
+        UpdateProfileResponse updateResponse = voterService.approveVoter(1L);
+        assertEquals("user@example.com ",updateResponse.getEmail());
+        assertEquals(APPROVED,updateResponse.getStatus());
+    }
+
+
 }

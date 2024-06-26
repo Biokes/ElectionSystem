@@ -7,6 +7,9 @@ import com.election.electionsystem.dtos.requests.VoterRequest;
 import com.election.electionsystem.dtos.response.UpdateProfileResponse;
 import com.election.electionsystem.dtos.response.VoterResponse;
 import com.election.electionsystem.models.data.Voter;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
 import org.springframework.stereotype.Service;
 
 import java.awt.image.PixelGrabber;
@@ -17,4 +20,5 @@ public interface VoterService {
     Voter findVoterById(long id);
     void suspendVoter(SuspendVoterRequest suspendVoter);
     UpdateProfileResponse updateVoterProfile(UpdateProfileRequest updateRequest);
+    UpdateProfileResponse approveVoter(Long voterId);
 }

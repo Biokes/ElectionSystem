@@ -10,7 +10,7 @@ public class EmailValidator implements ConstraintValidator<ValidateMail, String>
     private String regex;
     @Override
     public void initialize(ValidateMail constraintAnnotation) {
-        this.regex = constraintAnnotation.regex();
+        this.regex = constraintAnnotation.message();
     }
 
     @Override

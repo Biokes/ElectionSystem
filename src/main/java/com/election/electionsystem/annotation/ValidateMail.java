@@ -12,5 +12,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Constraint(validatedBy = EmailValidator.class)
 public @interface ValidateMail {
-    String regex()default"{Invalid email}";
+    String message()default"{Invalid email}";
 }

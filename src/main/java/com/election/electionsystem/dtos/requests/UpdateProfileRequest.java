@@ -1,13 +1,12 @@
 package com.election.electionsystem.dtos.requests;
 
-import com.election.electionsystem.annotation.ValidateMail;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,10 +17,12 @@ import java.time.LocalDate;
 @Getter
 @Builder
 public class UpdateProfileRequest {
+    private Long id;
     private String firstname;
     private String lastname;
+    @JsonIgnore
     private String oldPassword;
-    private String newPassword;
+    private String password;
     private String email;
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
