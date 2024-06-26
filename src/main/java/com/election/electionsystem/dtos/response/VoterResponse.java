@@ -1,6 +1,6 @@
 package com.election.electionsystem.dtos.response;
 
-import com.election.electionsystem.models.RegisterationStatus;
+import com.election.electionsystem.data.enums.RegisterationStatus;
 import lombok.*;
 
 @Setter

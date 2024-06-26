@@ -1,6 +1,6 @@
-package com.election.electionsystem.models.data;
+package com.election.electionsystem.data.models;
 
-import com.election.electionsystem.models.RegisterationStatus;
+import com.election.electionsystem.data.enums.RegisterationStatus;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;

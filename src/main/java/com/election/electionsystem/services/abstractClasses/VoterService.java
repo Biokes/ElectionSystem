@@ -6,13 +6,8 @@ import com.election.electionsystem.dtos.requests.UpdateProfileRequest;
 import com.election.electionsystem.dtos.requests.VoterRequest;
 import com.election.electionsystem.dtos.response.UpdateProfileResponse;
 import com.election.electionsystem.dtos.response.VoterResponse;
-import com.election.electionsystem.models.data.Voter;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.github.fge.jsonpatch.JsonPatch;
-import com.github.fge.jsonpatch.JsonPatchException;
+import com.election.electionsystem.data.models.Voter;
 import org.springframework.stereotype.Service;
-
-import java.awt.image.PixelGrabber;
 
 @Service
 public interface VoterService {

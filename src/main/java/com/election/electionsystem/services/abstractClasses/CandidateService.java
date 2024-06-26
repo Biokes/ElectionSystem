@@ -7,4 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface CandidateService {
     RegisterCandidateResponse registerCandidate(CandidateRegisterRequest request);
+    //apply for election as candidate
+    //cancel application
 }

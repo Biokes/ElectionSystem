@@ -1,4 +1,4 @@
-package com.election.electionsystem.models.data;
+package com.election.electionsystem.data.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;

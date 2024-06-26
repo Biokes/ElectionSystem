@@ -4,10 +4,9 @@ import com.election.electionsystem.dtos.requests.SuspendVoterRequest;
 import com.election.electionsystem.dtos.requests.UpdateProfileRequest;
 import com.election.electionsystem.dtos.response.UpdateProfileResponse;
 import com.election.electionsystem.exceptions.ElectionException;
-import com.election.electionsystem.models.RegisterationStatus;
-import com.election.electionsystem.models.data.Address;
-import com.election.electionsystem.models.data.ContactInformation;
-import com.election.electionsystem.models.data.Voter;
+import com.election.electionsystem.data.models.Address;
+import com.election.electionsystem.data.models.ContactInformation;
+import com.election.electionsystem.data.models.Voter;
 import com.election.electionsystem.repo.VoterRepository;
 import com.election.electionsystem.dtos.requests.VoterRequest;
 import com.election.electionsystem.dtos.response.VoterResponse;
@@ -17,12 +16,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.fge.jsonpatch.JsonPatch;
 import com.github.fge.jsonpatch.JsonPatchException;
-import com.github.fge.jsonpatch.diff.JsonDiff;
 import jakarta.validation.ConstraintViolationException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,9 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.election.electionsystem.exceptions.ExceptionMessages.*;
-import static com.election.electionsystem.models.RegisterationStatus.APPROVED;
-import static com.election.electionsystem.models.RegisterationStatus.SUSPENDED;
-import static com.election.electionsystem.utils.Validator.validate;
+import static com.election.electionsystem.data.enums.RegisterationStatus.APPROVED;
+import static com.election.electionsystem.data.enums.RegisterationStatus.SUSPENDED;
 
 @Service
 @AllArgsConstructor
