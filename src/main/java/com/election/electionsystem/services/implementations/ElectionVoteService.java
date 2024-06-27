@@ -1,7 +1,5 @@
 package com.election.electionsystem.services.implementations;
-
 import com.election.electionsystem.data.models.Candidate;
-import com.election.electionsystem.data.models.Election;
 import com.election.electionsystem.data.models.Vote;
 import com.election.electionsystem.data.models.Voter;
 import com.election.electionsystem.dtos.requests.VoteRequest;
@@ -20,7 +18,6 @@ import java.util.Optional;
 
 import static com.election.electionsystem.exceptions.ExceptionMessages.ALREADY_VOTED;
 import static com.election.electionsystem.exceptions.ExceptionMessages.INVALID_DETAILS;
-
 @Service
 public class ElectionVoteService implements VoteService {
     private final VoteRepository repo;
@@ -46,7 +43,6 @@ public class ElectionVoteService implements VoteService {
         vote = repo.save(vote);
         return modelMapper.map(vote, VoteResponse.class);
     }
-
     private Object[] validate(VoteRequest voteRequest) {
         Optional<Vote> vote = repo.findVoteByCandidate_IdAndVoter(voteRequest.getVoterId(), voteRequest.getCandidateId());
         if(vote.isPresent())throw new ElectionException(ALREADY_VOTED.getMessage());

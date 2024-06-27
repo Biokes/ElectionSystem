@@ -1,5 +1,7 @@
 package com.election.electionsystem.data.models;
 
+import com.election.electionsystem.data.enums.Office;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,8 +19,13 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Table(name = "candidates")
 public class Candidate{
     @Id
-    @GeneratedValue(strategy = IDENTITY)
     private Long id;
+    @OneToOne
+    @JoinColumn(name="candidate_voter")
+   private Voter voter;
     @OneToMany
     private Set<Vote> votes;
+    @JsonProperty("affidavit")
+    private String documentUrl;
+    private Office office;
 }

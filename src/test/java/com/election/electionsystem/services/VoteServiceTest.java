@@ -17,7 +17,7 @@ public class VoteServiceTest {
     private VoteService voteService;
     @Test
     void testVoterCanVote(){
-        VoteRequest voteRequest = VoteRequest.builder().voterId(1L).candidateId(1L).electionId(1L).build();
+        VoteRequest voteRequest = VoteRequest.builder().voterId(1L).candidateId(1L).build();
         VoteResponse response = voteService.castVote(voteRequest);
         assertEquals(NOT_STARTED,response.getElectionStatus());
         assertNotNull(response.getVoterId());
