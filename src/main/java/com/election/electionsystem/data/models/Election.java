@@ -34,5 +34,5 @@ public class Election {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime endDate;
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "election")
-    private List<Vote> votes;
+    private List<Candidate> votes;
 }

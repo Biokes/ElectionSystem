@@ -2,9 +2,7 @@ package com.election.electionsystem.data.models;
 
 import com.election.electionsystem.data.enums.PartyAffiliation;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -12,6 +10,9 @@ import java.time.LocalDateTime;
 @Getter
 @Table(name= "votes")
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +22,9 @@ public class Vote {
     private Voter voter;
     @Setter(AccessLevel.NONE)
     private LocalDateTime timeVoted;
-    private PartyAffiliation partyAffiliation;
+    @JoinColumn(name="candidate_vote_id")
     @ManyToOne
-    @JoinColumn(name="election_id")
-    private Election election;
+    private Candidate candidate;
     @PrePersist
     public void setTimeVoted(){
         timeVoted= LocalDateTime.now();
