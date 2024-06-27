@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
 import java.util.Set;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -19,13 +18,18 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Table(name = "candidates")
 public class Candidate{
     @Id
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    @OneToOne
+    @OneToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name="candidate_voter")
-   private Voter voter;
-    @OneToMany
-    private Set<Vote> votes;
+    private Voter voter;
+    @JoinColumn(name="candidate_election")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Election election;
     @JsonProperty("affidavit")
     private String documentUrl;
+    @Enumerated(EnumType.STRING)
     private Office office;
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Vote> votes;
 }

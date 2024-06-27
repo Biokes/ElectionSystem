@@ -51,7 +51,12 @@ public class ElectionSystemService implements ElectionService {
     public ViewElectionResponse viewElectionResult(ViewElectionRequest viewRequest){
         Election election = findElectionById(viewRequest.getElectionId());
         ViewElectionResponse response = modelMapper.map(election,ViewElectionResponse.class);
-        response.setNumberOfVotes((long) election.getVotes().size());
+        response.setNumberOfVotes((long) election.getCandidates().size());
         return response;
+    }
+
+    @Override
+    public Election save(Election election) {
+        return electionRepository.save(election);
     }
 }

@@ -1,6 +1,7 @@
 package com.election.electionsystem.dtos.requests;
 
 import com.election.electionsystem.annotation.annotation.ValidateMail;
+import com.election.electionsystem.data.enums.Office;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -38,4 +39,6 @@ public class VoterRequest {
     private LocalDate DOB;
     @NotNull
     private ContactInfoRequest infoRequest;
+    @NotNull
+    private Office office;
 }

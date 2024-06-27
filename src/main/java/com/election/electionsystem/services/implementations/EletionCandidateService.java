@@ -26,9 +26,10 @@ public class EletionCandidateService implements CandidateService{
     private ModelMapper mapper;
     private CandidateRepo repo;
     @Autowired
-    public EletionCandidateService(ModelMapper mapper,CandidateRepo repository){
+    public EletionCandidateService(ModelMapper mapper,CandidateRepo repository, Cloudinary cloudinary){
         this.mapper = mapper;
         this.repo= repository;
+        this.cloudinary= cloudinary;
     }
     @Override
     @Transactional
@@ -36,16 +37,17 @@ public class EletionCandidateService implements CandidateService{
         Candidate candidate = mapper.map(request,Candidate.class);
         candidate.setVoter(mapper.map(request.getRegisterRequest(), Voter.class));
         String url = uploadMedia(request.getAffidavit());
+        candidate.setDocumentUrl(url);
+        candidate.setOffice(request.getContestedOffice());
         repo.save(candidate);
-        RegisterCandidateResponse response = mapper.map(candidate,RegisterCandidateResponse.class);
-        return null;
+        return  mapper.map(candidate,RegisterCandidateResponse.class);
     }
 
     private String uploadMedia(MultipartFile affidavit) {
         try {
             Map<?,?> map = cloudinary.uploader().upload(affidavit.getBytes(),
                     ObjectUtils.asMap("resource_type","auto"));
-            return null;
+            return map.get("url").toString();
         }catch(IOException error){
             throw new ElectionException(SOMETHING_WENT_WRONG.getMessage());
         }

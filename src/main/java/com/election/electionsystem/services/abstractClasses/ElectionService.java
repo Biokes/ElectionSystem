@@ -15,4 +15,5 @@ public interface ElectionService {
     Election findElectionById(Long id);
     ScheduleResponse rescheduleElection(RescheduleRequest rescheduleRequest);
     ViewElectionResponse viewElectionResult(ViewElectionRequest viewRequest);
+    Election save(Election election);
 }
