@@ -20,11 +20,11 @@ public class Candidate{
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    @OneToOne(cascade=CascadeType.PERSIST)
+    @OneToOne(cascade=CascadeType.REFRESH)
     @JoinColumn(name="candidate_voter")
     private Voter voter;
     @JoinColumn(name="candidate_election")
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     private Election election;
     @JsonProperty("affidavit")
     private String documentUrl;

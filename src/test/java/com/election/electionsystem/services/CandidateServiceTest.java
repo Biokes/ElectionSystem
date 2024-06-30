@@ -35,7 +35,7 @@ public class CandidateServiceTest {
             CandidateRegisterRequest registerRequest = CandidateRegisterRequest.builder().affidavit(file)
                     .registerRequest(VoterRequest.builder().firstname("sam").office(PRESIDENCY)
                             .lastname("sammy").password("Password1234;.").DOB(LocalDate.parse("1975-12-10"))
-                            .email("email@email.com").infoRequest(ContactInfoRequest.builder()
+                            .email("email12@email.com").infoRequest(ContactInfoRequest.builder()
                                     .phoneNumber("90890987659").build()).build()).build();
             RegisterCandidateResponse response = candidateService.registerCandidate(registerRequest);
             assertNotNull(response);

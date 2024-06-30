@@ -17,4 +17,6 @@ public class CandidateRegisterRequest {
     private MultipartFile affidavit;
     @NotNull
      private Office contestedOffice;
+    @NotNull
+    private Long eletionId;
 }
