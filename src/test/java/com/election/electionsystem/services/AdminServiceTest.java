@@ -25,7 +25,7 @@ public class AdminServiceTest {
                 voterRequest(VoterRequest.builder()
                         .firstname("firstname").lastname("lastname")
                         .DOB(LocalDate.parse("1989-12-19"))
-                        .email("use12r@example.com ")
+                        .email("use1r@example.com ")
                         .password("Password12,.")
                         .address(AddressRequest.builder().houseNumber("13")
                                 .State("lagos").area("meiran").street("lagos").build())
