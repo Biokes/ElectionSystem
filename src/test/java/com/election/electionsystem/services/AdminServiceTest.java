@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 
+import static com.election.electionsystem.data.enums.AdminRole.SYSTEM_ADMINISTRATOR;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -20,7 +21,7 @@ public class AdminServiceTest {
     private AdminService adminService;
     @Test
     void testAdminCanRegisterAsAdmin(){
-        AdminRegister admin = AdminRegister.builder().
+        AdminRegister admin = AdminRegister.builder().role(SYSTEM_ADMINISTRATOR).
                 voterRequest(VoterRequest.builder()
                         .firstname("firstname").lastname("lastname")
                         .DOB(LocalDate.parse("1989-12-19"))
@@ -35,6 +36,8 @@ public class AdminServiceTest {
                 .build();
        AdminResponse response = adminService.registerAsAdmin(admin);
        assertThat(response.getId()).isNotNull();
+       assertThat(response.getEmail()).isNotNull();
+       assertThat(response.getRole()).isNotNull();
     }
 
 }
