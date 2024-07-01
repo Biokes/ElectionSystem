@@ -1,5 +1,7 @@
 package com.election.electionsystem.services.implementations;
 
+import com.election.electionsystem.data.enums.RegisterationStatus;
+import com.election.electionsystem.data.models.Address;
 import com.election.electionsystem.data.models.Admin;
 import com.election.electionsystem.data.models.Voter;
 import com.election.electionsystem.dtos.requests.*;
@@ -15,6 +17,7 @@ import com.election.electionsystem.services.abstractClasses.*;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import static com.election.electionsystem.exceptions.ExceptionMessages.INVALID_DETAILS;
@@ -26,16 +29,18 @@ public class ElectionAdminService implements AdminService {
     private final CandidateService candidateService;
     private final VoterService voterService;
     private final ModelMapper modelmapper;
+    private final PasswordEncoder encoder;
     private AdminRepository adminRepository;
     @Autowired
     public ElectionAdminService(ElectionService electionService,CandidateService candidateService,
                                 AdminRepository adminRepository, VoterService voterService,
-                                ModelMapper modelMapper){
+                                ModelMapper modelMapper, PasswordEncoder encoder){
         this.candidateService = candidateService;
         this.voterService = voterService;
         this.electionService = electionService;
         this.modelmapper = modelMapper;
         this.adminRepository= adminRepository;
+        this.encoder = encoder;
         }
     @Override
     public RegisterCandidateResponse registerCandidate(CandidateRegisterRequest candidateToBeRegistered) {
@@ -44,11 +49,24 @@ public class ElectionAdminService implements AdminService {
 
     @Override
     public AdminResponse registerAsAdmin(AdminRegister request) {
-            Admin admin = Admin.builder()
-                        .voter(voterService.findVoterById(registerVoter(request.getVoterRequest()).getId()))
-                        .role(request.getRole()).build();
-            admin = adminRepository.save(admin);
-        return AdminResponse.builder().role(admin.getRole()).build();
+//        Voter voter = modelmapper.map(request,Voter.class);
+//        voterService.save(voter);
+//        Admin admin = new Admin();
+//        admin.setVoter(voter);
+//        admin.setRole(request.getRole());
+//        admin = adminRepository.save(admin);
+//        return modelmapper.map(admin, AdminResponse.class);
+        Admin admin = modelmapper.map(request, Admin.class);
+        admin.getVoter().getInfoRequest().setAddress(modelmapper
+                .map(request.getVoterRequest().getAddress(), Address.class));
+        admin.getVoter().setRegisterationStatus(RegisterationStatus.APPROVED);
+        admin.setRole(request.getRole());
+        admin.getVoter().setPassword(encoder.encode(admin.getVoter().getPassword()));
+        admin=adminRepository.save(admin);
+        AdminResponse response =  modelmapper.map(admin, AdminResponse.class);
+        response.setEmail(admin.getVoter().getEmail());
+                log.info("Admin ------------------------->{}",response);
+        return response;
     }
 
     @Override

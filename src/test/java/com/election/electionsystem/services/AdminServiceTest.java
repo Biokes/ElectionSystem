@@ -35,9 +35,8 @@ public class AdminServiceTest {
                         .build())
                 .build();
        AdminResponse response = adminService.registerAsAdmin(admin);
-       assertThat(response.getId()).isNotNull();
+       assertThat(response.getId()).isNotEqualTo(0L);
        assertThat(response.getEmail()).isNotNull();
        assertThat(response.getRole()).isNotNull();
     }
-
 }

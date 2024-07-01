@@ -40,6 +40,11 @@ public class ElectionVoterService implements VoterService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    public Voter save(Voter voter) {
+        return voterRepository.save(voter);
+    }
+
+    @Override
     public VoterResponse registerVoter(VoterRequest voterRequest) {
         try {
             Address address = modelMapper.map(voterRequest.getAddress(), Address.class);

@@ -1,16 +1,15 @@
-package com.election.electionsystem.dtos.response;
+package com.election.electionsystem.dtos.requests;
 
 import com.election.electionsystem.data.enums.AdminRole;
 import lombok.*;
 
+@Builder
 @Setter
 @Getter
-@Builder
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminResponse {
-    private Long id;
+public class AdminLoginRequest {
     private String email;
+    private String password;
     private AdminRole role;
 }

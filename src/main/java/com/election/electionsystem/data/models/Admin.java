@@ -18,7 +18,7 @@ public class Admin {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "admin_voter_id")
     private Voter voter;
     @Enumerated(EnumType.STRING)
