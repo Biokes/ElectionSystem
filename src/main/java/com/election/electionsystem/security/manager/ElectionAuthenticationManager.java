@@ -12,10 +12,10 @@ import static com.election.electionsystem.exceptions.ExceptionMessages.SOMETHING
 
 @Component
 @AllArgsConstructor
-public class ElectionAuthenticationManager implements AuthenticationManager {
+public class ElectionAuthenticationManager implements AuthenticationManager{
     private final AuthenticationProvider authenticationProvider;
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException{
         Class<? extends Authentication> authenticationType = authentication.getClass();
         if (authenticationProvider.supports(authenticationType))
             return authenticationProvider.authenticate(authentication);

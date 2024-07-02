@@ -28,5 +28,6 @@ public class ViewElectionResponse {
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonProperty("endTime")
     private LocalDateTime endDate;
+    private String winner;
 
 }

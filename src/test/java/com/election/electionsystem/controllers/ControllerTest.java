@@ -37,16 +37,5 @@ public class ControllerTest{
             assertNull(exception);
         }
     }
-//    @Test
-//    void testAdminCanRegisterCandidate(){
-//        try {
-//            ObjectMapper mapper = new ObjectMapper();
-//            VoterRequest voterRequest = VoterRequest.builder().build();
-//            mockMvc.perform(post("/api/v1/register-voter")
-//                            .contentType(MediaType.APPLICATION_JSON)
-//                            .content(mapper.writeValueAsBytes(voterRequest)))
-//                    .andExpect(status().isCreated());
-//        }catch(Exception error){}
-//    }
 
 }

@@ -1,9 +1,9 @@
 package com.election.electionsystem.services.implementations;
 
 import com.election.electionsystem.data.models.Election;
+import com.election.electionsystem.data.models.Voter;
 import com.election.electionsystem.dtos.requests.ElectionRequest;
 import com.election.electionsystem.dtos.requests.RescheduleRequest;
-import com.election.electionsystem.dtos.requests.ViewElectionRequest;
 import com.election.electionsystem.dtos.response.ScheduleResponse;
 import com.election.electionsystem.dtos.response.ViewElectionResponse;
 import com.election.electionsystem.exceptions.ElectionException;
@@ -13,6 +13,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Comparator;
+import java.util.stream.IntStream;
 
 import static com.election.electionsystem.data.enums.Status.NOT_STARTED;
 import static com.election.electionsystem.exceptions.ExceptionMessages.INVALID_NUMBER;
@@ -34,7 +37,7 @@ public class ElectionSystemService implements ElectionService {
         return modelMapper.map(election,ScheduleResponse.class);
     }
     @Override
-    public Election findElectionById(Long id){
+    public Election findElectionById(java.lang.Long id){
         return electionRepository.findById(id)
                 .orElseThrow(()->new ElectionException(INVALID_NUMBER.getMessage()));
     }
@@ -48,10 +51,14 @@ public class ElectionSystemService implements ElectionService {
 
     @Override
     @Transactional
-    public ViewElectionResponse viewElectionResult(ViewElectionRequest viewRequest){
-        Election election = findElectionById(viewRequest.getElectionId());
+    public ViewElectionResponse getElectionWinner(Long viewRequest){
+        Election election = findElectionById(viewRequest);
         ViewElectionResponse response = modelMapper.map(election,ViewElectionResponse.class);
-        response.setNumberOfVotes((long) election.getCandidates().size());
+        Voter winner = election.getCandidates().stream().max(Comparator.comparingInt(candidate->
+                candidate.getVotes().size())).get().getVoter();
+        response.setWinner(winner.getFirstname()+ " "+ winner.getLastname());
+        response.setNumberOfVotes((long) (election.getCandidates().stream().flatMapToInt(candidate ->
+                IntStream.of(candidate.getVotes().size())).max()).getAsInt());
         return response;
     }
 
@@ -59,4 +66,5 @@ public class ElectionSystemService implements ElectionService {
     public Election save(Election election) {
         return electionRepository.save(election);
     }
+
 }

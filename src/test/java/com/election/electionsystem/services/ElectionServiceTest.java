@@ -3,7 +3,7 @@ package com.election.electionsystem.services;
 import com.election.electionsystem.data.models.Election;
 import com.election.electionsystem.dtos.requests.ElectionRequest;
 import com.election.electionsystem.dtos.requests.RescheduleRequest;
-import com.election.electionsystem.dtos.requests.ViewElectionRequest;
+import com.election.electionsystem.dtos.requests.Long;
 import com.election.electionsystem.dtos.response.ScheduleResponse;
 import com.election.electionsystem.dtos.response.ViewElectionResponse;
 import com.election.electionsystem.services.abstractClasses.ElectionService;
@@ -57,9 +57,9 @@ public class ElectionServiceTest {
                     .startDate(LocalDateTime.parse("2024-12-03T10:00:00"))
                     .endTime(LocalDateTime.parse("2024-12-03T18:00:00")).description("Elite election12").build();
            ScheduleResponse response = electionService.scheduleElection(request);
-            ViewElectionRequest viewRequest = ViewElectionRequest.builder()
+            Long viewRequest = Long.builder()
                                               .electionId(response.getId()).build();
-            ViewElectionResponse result  = electionService.viewElectionResult(viewRequest);
+            ViewElectionResponse result  = electionService.getElectionWinner(viewRequest);
             assertEquals(0, result.getNumberOfVotes());
             assertEquals(NOT_STARTED,result.getStatus());
             assertEquals(LocalDateTime.parse("2024-12-03T10:00:00"),result.getStartDate());

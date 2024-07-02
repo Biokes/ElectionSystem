@@ -8,10 +8,9 @@ public enum AdminRole implements GrantedAuthority {
     AdminRole(String role){
         this.role = role;
     }
-    String role;
-
+    final String role;
     @Override
-    public String getAuthority() {
+    public String getAuthority(){
         return this.role;
     }
 }

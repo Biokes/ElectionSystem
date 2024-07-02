@@ -83,4 +83,10 @@ public class ElectionAdminService implements AdminService {
     public ScheduleResponse rescheduleElection(RescheduleRequest request) {
         return electionService.rescheduleElection(request);
     }
+
+    @Override
+    public Admin getAdminByUsername(String email) {
+        return (Admin) adminRepository.findAll().stream()
+                .filter(admin -> admin.getVoter().getEmail().equalsIgnoreCase(email));
+    }
 }

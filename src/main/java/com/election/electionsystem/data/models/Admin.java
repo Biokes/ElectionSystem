@@ -3,6 +3,7 @@ package com.election.electionsystem.data.models;
 import com.election.electionsystem.data.enums.AdminRole;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -14,7 +15,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 @Getter
 @ToString
-public class Admin {
+public class Admin{
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
