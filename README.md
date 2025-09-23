@@ -60,7 +60,7 @@ Supports various election offices including:
 - **Security**: Spring Security with JWT
 - **File Storage**: Cloudinary
 - **Build Tool**: Maven
-- **Documentation**: Swagger/OpenAPI
+- **Documentation**: POSTMAN
 
 ## Key Dependencies
 
@@ -242,3 +242,4 @@ For technical support or bug reports:
 For general inquiries, you can [Click here ](https://x.com/blockchainrafik) to reach out to me
 
 Drop a mail [Here](mailto:blockchainrafik@gmail.com)
+
